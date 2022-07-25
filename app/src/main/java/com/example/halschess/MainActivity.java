@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             line = "";
         }
         char piece = getCharFromString(board[beforex][beforey], 0);
-        before.setImageResource(R.drawable.nothing);
+
 
         // white
         if (Character.isUpperCase(piece)  &&
@@ -252,8 +252,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 for (int i = 0; i <= 2; i++) {
                     if (beforex == afterx && aftery == beforey + i) {
                         board[beforex][beforey] = "0";
-                        before.setImageResource(R.drawable.nothing);
                         board[afterx][aftery] = "P";
+                        before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.pawnwhite);
                         return true;
                     }
@@ -262,6 +262,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey + 1 == aftery) {
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "P";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.pawnwhite);
                     return true;
                 }
             }
@@ -273,24 +275,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (beforey + i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "C";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.rookwhite);
                         return true;
                     }
                     // backward
                     if (beforey - i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "C";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.rookwhite);
                         return true;
                     }
                     // right
                     if (beforex + i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "C";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.rookwhite);
                         return true;
                     }
                     // left
                     if (beforex - i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "C";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.rookwhite);
                         return true;
                     }
                 }
@@ -302,12 +312,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey + 2 == aftery) {
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "N";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.knightwhite);
                     return true;
                 }
                 // backward
                 if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey - 2 == aftery) {
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "N";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.knightwhite);
                     return true;
                 }
 
@@ -315,12 +329,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex + 2 == afterx) {
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "N";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.knightwhite);
                     return true;
                 }
                 // left
                 if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex - 2 == afterx) {
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "N";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.knightwhite);
                     return true;
                 }
             }
@@ -334,24 +352,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (beforey + i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "Q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenwhite);
                         return true;
                     }
                     // backward
                     if (beforey - i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "Q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenwhite);
                         return true;
                     }
                     // right
                     if (beforex + i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "Q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenwhite);
                         return true;
                     }
                     // left
                     if (beforex - i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "Q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenwhite);
                         return true;
                     }
                 }
