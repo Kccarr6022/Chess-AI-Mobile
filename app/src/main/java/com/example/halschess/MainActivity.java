@@ -25,16 +25,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int count = 0; // Starts at 0
     String[][] board =
             new String[][] { // lowercase = black uppercase = white
-        {"C", "N", "B", "Q", "K", "B", "N", "C"},  // 1
-        {"P", "P", "P", "P", "P", "P", "P", "P"}, // 2
-        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 3
-        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 4
-        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 5
-        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 6
-        {"p", "p", "p", "p", "p", "p", "p", "p"}, // 7
-        {"c", "n", "b", "q", "k", "b", "n", "c"}, // 8
+        {"C", "P", "0", "0", "0", "0", "p", "c"},  // 1
+        {"N", "P", "0", "0", "0", "0", "p", "n"}, // 2
+        {"B", "P", "0", "0", "0", "0", "p", "b"}, // 3
+        {"Q", "P", "0", "0", "0", "0", "p", "q"}, // 4
+        {"K", "P", "0", "0", "0", "0", "p", "k"}, // 5
+        {"B", "P", "0", "0", "0", "0", "p", "b"}, // 6
+        {"N", "P", "p", "p", "p", "p", "p", "n"}, // 7
+        {"C", "P", "b", "q", "k", "b", "p", "c"}, // 8
 
     }; //     A    B    C    D    E    F    G    H
+
+
 
 
 
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         resetBoard(board);
+        board[5][1] = "x";
 
         // Instantiates image buttons for board
         ImageButton A1 = findViewById(R.id.A1);
@@ -201,17 +204,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /* The board in this model will be 8 by 8 and will have pieces arranged correctly. */
 
         board =
-                new String[][]{ // lowercase = black uppercase = white
-                        {"C", "N", "B", "Q", "K", "B", "N", "C"},  // 1
-                        {"P", "P", "P", "P", "P", "P", "P", "P"}, // 2
-                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 3
-                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 4
-                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 5
-                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 6
-                        {"p", "p", "p", "p", "p", "p", "p", "p"}, // 7
-                        {"c", "n", "b", "q", "k", "b", "n", "c"}, // 8
+                new String[][] { // lowercase = black uppercase = white
+                        {"C", "P", "0", "0", "0", "0", "p", "c"},  // 1
+                        {"N", "P", "0", "0", "0", "0", "p", "n"}, // 2
+                        {"B", "P", "0", "0", "0", "0", "p", "b"}, // 3
+                        {"Q", "P", "0", "0", "0", "0", "p", "q"}, // 4
+                        {"K", "P", "0", "0", "0", "0", "p", "k"}, // 5
+                        {"B", "P", "0", "0", "0", "0", "p", "b"}, // 6
+                        {"N", "P", "p", "p", "p", "p", "p", "n"}, // 7
+                        {"C", "P", "b", "q", "k", "b", "p", "c"}, // 8
 
                 }; //     A    B    C    D    E    F    G    H
+
 
 
     }
