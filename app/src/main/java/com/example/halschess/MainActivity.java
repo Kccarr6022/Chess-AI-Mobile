@@ -101,25 +101,82 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // knights
+            if (board[beforex][beforey].equals("N")) {
+                // forward
+                if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey + 2 == aftery) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "N";
+                    return true;
+                }
+                // backward
+                if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey - 2 == aftery) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "N";
+                    return true;
+                }
 
+                // right
+                if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex + 2 == afterx) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "N";
+                    return true;
+                }
+                // left
+                if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex - 2 == afterx) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "N";
+                    return true;
+                }
+            }
 
             // bishops
 
             // queens
+            if (board[beforex][beforey].equals("Q")) {
+                for (int i = 0; i <= 8; i++) {
+                    // forward
+                    if (beforey + i == aftery) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "Q";
+                        return true;
+                    }
+                    // backward
+                    if (beforey - i == aftery) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "Q";
+                        return true;
+                    }
+                    // right
+                    if (beforex + i == aftery) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "Q";
+                        return true;
+                    }
+                    // left
+                    if (beforex - i == aftery) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "Q";
+                        return true;
+                    }
+                }
+            }
 
             // kings
 
             // nothing (out of bounds) <- buttons(unlikely)
 
         // black
-        } else if (Character.isLowerCase(piece)){
+        } else if (Character.isLowerCase(piece)  &&
+                (!Character.isLowerCase(getCharFromString(board[afterx][aftery], 0)))){
 
             // pawns
-            if (board[beforex][beforey] == "p") {
+            if (board[beforex][beforey].equals("p")) {
                 // forward
                 for (int i = 0; i <= 2; i--) {
-                    if (beforex == afterx && aftery == beforey + i
-                            && board[beforex][beforey].equals("0")) {
+                    if (Character.isLowerCase(getCharFromString(board[beforex][beforey + i], 0))) {
+                        break;
+                    }
+                    if (beforex == afterx && aftery == beforey + i) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "P";
                         return true;
@@ -164,10 +221,64 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // knights
+            if (board[beforex][beforey].equals("n")) {
+                // forward
+                if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey + 2 == aftery) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "n";
+                    return true;
+                }
+                // backward
+                if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey - 2 == aftery) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "n";
+                    return true;
+                }
 
+                // right
+                if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex + 2 == afterx) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "n";
+                    return true;
+                }
+                // left
+                if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex - 2 == afterx) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "n";
+                    return true;
+                }
+            }
             // bishops
 
             // queens
+            if (board[beforex][beforey].equals("q")) {
+                for (int i = 0; i <= 8; i++) {
+                    // forward
+                    if (beforey + i == aftery) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "q";
+                        return true;
+                    }
+                    // backward
+                    if (beforey - i == aftery) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "q";
+                        return true;
+                    }
+                    // right
+                    if (beforex + i == aftery) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "q";
+                        return true;
+                    }
+                    // left
+                    if (beforex - i == aftery) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "q";
+                        return true;
+                    }
+                }
+            }
 
             // kings
 
