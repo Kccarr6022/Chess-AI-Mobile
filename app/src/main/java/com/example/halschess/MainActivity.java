@@ -2,19 +2,46 @@ package com.example.halschess;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    int count = 0; // Starts at 0
-    String[][] board = new String[8][8]; // The surrounding contains nullptr/ empty memory
+    /*-------------------------BOARD---------------------------------
+            {"c", "n", "b", "q", "k", "b", "n", "c"}, // 8
+            {"p", "p", "p", "p", "p", "p", "p", "p"}, // 7
+            {"0", "0", "0", "0", "0", "0", "0", "0"}, // 6
+            {"0", "0", "0", "0", "0", "0", "0", "0"}, // 5
+            {"0", "0", "0", "0", "0", "0", "0", "0"}, // 4
+            {"0", "0", "0", "0", "0", "0", "0", "0"}, // 3
+            {"P", "P", "P", "P", "P", "P", "P", "P"}, // 2
+            {"C", "N", "B", "Q", "K", "B", "N", "C"}  // 1
+       //     A    B    C    D    E    F    G    H;   // Letters
+     */
 
-    String player1before; // "A-H"(x)  + "1-8"(y)
-    String player1after; // "A-H"(x)  + "1-8"(y)
-    String player2before; // "A-H"(x)  + "1-8"(y)
-    String player2after; // "A-H"(x)  + "1-8"(y)
+    int count = 0; // Starts at 0
+    String[][] board =
+            new String[][] { // lowercase = black uppercase = white
+        {"C", "N", "B", "Q", "K", "B", "N", "C"},  // 1
+        {"P", "P", "P", "P", "P", "P", "P", "P"}, // 2
+        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 3
+        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 4
+        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 5
+        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 6
+        {"p", "p", "p", "p", "p", "p", "p", "p"}, // 7
+        {"c", "n", "b", "q", "k", "b", "n", "c"}, // 8
+
+    }; //     A    B    C    D    E    F    G    H
+
+
+
+    ImageButton player1before; // "A-H"(x)  + "1-8"(y)
+    ImageButton player1after; // "A-H"(x)  + "1-8"(y)
+    ImageButton player2before; // "A-H"(x)  + "1-8"(y)
+    ImageButton player2after; // "A-H"(x)  + "1-8"(y)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,64 +187,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
-
-        if (count % 4 == 1) { // player1 before
-            player1before = v.getTag().toString();
-            count++;
-        } else if (count % 4 == 2){ // player1 after
-            player1after = v.getTag().toString();
-            move(player1before, player1after);
-            count++;
-        } else if (count % 4 == 3){ // player2 before
-            player2before = v.getTag().toString();
-            count++;
-        } else if (count % 4 == 0){ // player2 after
-            player2after = v.getTag().toString();
-            count++;
-        }
+        count++;
+        if (count % 4 == 1) { player1before = (ImageButton) v; }
+        else if (count % 4 == 2){ player1after = (ImageButton) v;move(player1before, player1after); }
+        else if (count % 4 == 3){ player2before = (ImageButton) v; }
+        else if (count % 4 == 0){ player2after = (ImageButton) v; move(player2before, player2after); }
     }
 
 
 
 
     public void resetBoard( String[][] board) {
-        /* The board in this model will be 9 by 9 and will have pieces arranged correctly. */
+        /* The board in this model will be 8 by 8 and will have pieces arranged correctly. */
 
         board =
                 new String[][]{ // lowercase = black uppercase = white
-                        {"c", "n", "b", "q", "k", "b", "n", "c"}, // 8
-                        {"p", "p", "p", "p", "p", "p", "p", "p"}, // 7
-                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 6
-                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 5
-                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 4
-                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 3
+                        {"C", "N", "B", "Q", "K", "B", "N", "C"},  // 1
                         {"P", "P", "P", "P", "P", "P", "P", "P"}, // 2
-                        {"C", "N", "B", "Q", "K", "B", "N", "C"}  // 1
+                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 3
+                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 4
+                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 5
+                        {"0", "0", "0", "0", "0", "0", "0", "0"}, // 6
+                        {"p", "p", "p", "p", "p", "p", "p", "p"}, // 7
+                        {"c", "n", "b", "q", "k", "b", "n", "c"}, // 8
+
                 }; //     A    B    C    D    E    F    G    H
 
 
     }
 
-    public boolean move(String before, String after) { // Takes two (A-H)(1-8) strings
-        int beforex = Character.toUpperCase(getCharFromString(before, 0)) - 'A';
-        int beforey = getCharFromString(before, 1) - '1';
-        int afterx = Character.toUpperCase(getCharFromString(after, 0)) - 'A';
-        int aftery = getCharFromString(after, 1) - '1';
+    public boolean move(ImageButton before, ImageButton after) { // Takes two (A-H)(1-8) strings
+        int beforex = Character.toUpperCase(getCharFromString(before.getTag().toString(), 0)) - 'A';
+        int beforey = getCharFromString(before.getTag().toString(), 1) - '1';
+        int afterx = Character.toUpperCase(getCharFromString(after.getTag().toString(), 0)) - 'A';
+        int aftery = getCharFromString(after.getTag().toString(), 1) - '1';
+        String status = "Move 1 is " + Integer.toString(beforex) + Integer.toString(beforey) +
+                ". Move 2 is " + Integer.toString(afterx) + Integer.toString(aftery);
+        Log.d("move", status);
+        Log.d("move ", board[beforex][beforey]);
+        String line = "";
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                line = line + board[x][y] + " ";
+                if (y == 7) {
+                    Log.d("Move", line);
+                }
+            }
+            Log.d("move", "\n");
+            line = "";
+        }
         char piece = getCharFromString(board[beforex][beforey], 0);
+        before.setImageResource(R.drawable.nothing);
 
         // white
         if (Character.isUpperCase(piece)  &&
                 (!Character.isUpperCase(getCharFromString(board[afterx][aftery], 0)))){
-
             // pawns
-            if (board[beforex][beforey].equals("P")) {
+            if (piece == 'P') {
                 // forward
                 for (int i = 0; i <= 2; i++) {
-                    if (beforex == afterx && aftery == beforey + i
-                            && board[beforex][beforey].equals("0")) {
+                    if (beforex == afterx && aftery == beforey + i) {
                         board[beforex][beforey] = "0";
+                        before.setImageResource(R.drawable.nothing);
                         board[afterx][aftery] = "P";
+                        after.setImageResource(R.drawable.pawnwhite);
                         return true;
                     }
                 }
