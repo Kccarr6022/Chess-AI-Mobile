@@ -27,7 +27,8 @@
         android:tag="A8"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/rookblack" />
 
     <ImageButton
         android:id="@+id/B8"
@@ -39,7 +40,8 @@
         android:tag="B8"
         app:layout_constraintStart_toStartOf="@id/A8"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/knightblack" />
 
     <ImageButton
         android:id="@+id/C8"
@@ -51,7 +53,8 @@
         android:tag="C8"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/bishopblack" />
 
     <ImageButton
         android:id="@+id/D8"
@@ -63,7 +66,8 @@
         android:tag="D8"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/queenblack" />
 
     <ImageButton
         android:id="@+id/E8"
@@ -75,7 +79,8 @@
         android:tag="E8"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/kingblack" />
 
     <ImageButton
         android:id="@+id/F8"
@@ -87,7 +92,8 @@
         android:tag="F8"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/bishopblack" />
 
     <ImageButton
         android:id="@+id/G8"
@@ -99,7 +105,8 @@
         android:tag="G8"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/knightblack" />
 
     <ImageButton
         android:id="@+id/H8"
@@ -111,7 +118,8 @@
         android:tag="H8"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/rookblack" />
 
     <ImageButton
         android:id="@+id/A7"
@@ -122,7 +130,8 @@
         android:tag="A7"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnblack" />
 
     <ImageButton
         android:id="@+id/B7"
@@ -135,7 +144,8 @@
         android:tag="B7"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnblack" />
 
     <ImageButton
         android:id="@+id/C7"
@@ -148,7 +158,8 @@
         android:tag="C7"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnblack" />
 
     <ImageButton
         android:id="@+id/D7"
@@ -161,7 +172,8 @@
         android:tag="D7"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnblack" />
 
     <ImageButton
         android:id="@+id/E7"
@@ -174,7 +186,8 @@
         android:tag="E7"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnblack" />
 
     <ImageButton
         android:id="@+id/F7"
@@ -187,7 +200,8 @@
         android:tag="F7"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnblack" />
 
     <ImageButton
         android:id="@+id/G7"
@@ -200,7 +214,8 @@
         android:tag="G7"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnblack" />
 
     <ImageButton
         android:id="@+id/H7"
@@ -213,7 +228,8 @@
         android:tag="H7"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnblack" />
 
     <ImageButton
         android:id="@+id/A6"
@@ -224,7 +240,8 @@
         android:tag="A6"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/B6"
@@ -237,7 +254,8 @@
         android:tag="B6"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/C6"
@@ -250,7 +268,8 @@
         android:tag="C6"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/D6"
@@ -263,7 +282,8 @@
         android:tag="D6"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/E6"
@@ -276,7 +296,8 @@
         android:tag="E6"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/F6"
@@ -289,7 +310,8 @@
         android:tag="F6"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/G6"
@@ -302,7 +324,8 @@
         android:tag="G6"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/H6"
@@ -315,7 +338,8 @@
         android:tag="H6"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/A5"
@@ -326,7 +350,8 @@
         android:tag="A5"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/B5"
@@ -339,7 +364,8 @@
         android:tag="B5"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/C5"
@@ -352,7 +378,8 @@
         android:tag="C5"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/D5"
@@ -365,7 +392,8 @@
         android:tag="D5"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/E5"
@@ -378,7 +406,8 @@
         android:tag="E5"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/F5"
@@ -391,7 +420,8 @@
         android:tag="F5"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/G5"
@@ -404,7 +434,8 @@
         android:tag="G5"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/H5"
@@ -417,7 +448,8 @@
         android:tag="H5"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/A4"
@@ -428,7 +460,8 @@
         android:tag="A4"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/B4"
@@ -441,7 +474,8 @@
         android:tag="B4"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/C4"
@@ -454,7 +488,8 @@
         android:tag="C4"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/D4"
@@ -467,7 +502,8 @@
         android:tag="D4"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/E4"
@@ -480,7 +516,8 @@
         android:tag="E4"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/F4"
@@ -493,7 +530,8 @@
         android:tag="F4"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/G4"
@@ -506,7 +544,8 @@
         android:tag="G4"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/H4"
@@ -519,7 +558,8 @@
         android:tag="H4"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/A3"
@@ -530,7 +570,8 @@
         android:tag="A3"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/B3"
@@ -543,7 +584,8 @@
         android:tag="B3"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/C3"
@@ -556,7 +598,8 @@
         android:tag="C3"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/D3"
@@ -569,7 +612,8 @@
         android:tag="D3"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/E3"
@@ -582,7 +626,8 @@
         android:tag="E3"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/F3"
@@ -595,7 +640,8 @@
         android:tag="F3"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/G3"
@@ -608,7 +654,8 @@
         android:tag="G3"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/H3"
@@ -621,7 +668,8 @@
         android:tag="H3"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/nothing" />
 
     <ImageButton
         android:id="@+id/A2"
@@ -632,7 +680,8 @@
         android:tag="A2"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnwhite" />
 
     <ImageButton
         android:id="@+id/B2"
@@ -645,7 +694,8 @@
         android:tag="B2"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnwhite" />
 
     <ImageButton
         android:id="@+id/C2"
@@ -658,7 +708,8 @@
         android:tag="C2"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnwhite" />
 
     <ImageButton
         android:id="@+id/D2"
@@ -671,7 +722,8 @@
         android:tag="D2"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnwhite" />
 
     <ImageButton
         android:id="@+id/E2"
@@ -684,7 +736,8 @@
         android:tag="E2"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnwhite" />
 
     <ImageButton
         android:id="@+id/F2"
@@ -697,7 +750,8 @@
         android:tag="F2"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnwhite" />
 
     <ImageButton
         android:id="@+id/G2"
@@ -710,7 +764,8 @@
         android:tag="G2"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnwhite" />
 
     <ImageButton
         android:id="@+id/H2"
@@ -723,7 +778,8 @@
         android:tag="H2"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/pawnwhite" />
 
     <ImageButton
         android:id="@+id/A1"
@@ -734,7 +790,8 @@
         android:tag="A1"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/rookwhite" />
 
     <ImageButton
         android:id="@+id/B1"
@@ -747,7 +804,8 @@
         android:tag="B1"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/knightwhite" />
 
     <ImageButton
         android:id="@+id/C1"
@@ -760,7 +818,8 @@
         android:tag="C1"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/bishopwhite" />
 
     <ImageButton
         android:id="@+id/D1"
@@ -773,7 +832,8 @@
         android:tag="D1"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/queenwhite" />
 
     <ImageButton
         android:id="@+id/E1"
@@ -786,7 +846,8 @@
         android:tag="E1"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/kingwhite" />
 
     <ImageButton
         android:id="@+id/F1"
@@ -799,7 +860,8 @@
         android:tag="F1"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/bishopwhite" />
 
     <ImageButton
         android:id="@+id/G1"
@@ -812,7 +874,8 @@
         android:tag="G1"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/knightwhite" />
 
     <ImageButton
         android:id="@+id/H1"
@@ -825,7 +888,8 @@
         android:tag="H1"
         app:layout_constraintStart_toStartOf="@id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        android:background="@android:color/transparent"
+        app:srcCompat="@drawable/rookwhite" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
