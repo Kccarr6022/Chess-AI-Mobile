@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        //     A    B    C    D    E    F    G    H;   // Letters
      */
 
-    int count = 0; // Starts at 0
     String[][] board =
             new String[][] { // lowercase = black uppercase = white
         {"C", "P", "0", "0", "0", "0", "p", "c"},  // 1
@@ -31,11 +30,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {"Q", "P", "0", "0", "0", "0", "p", "q"}, // 4
         {"K", "P", "0", "0", "0", "0", "p", "k"}, // 5
         {"B", "P", "0", "0", "0", "0", "p", "b"}, // 6
-        {"N", "P", "p", "p", "p", "p", "p", "n"}, // 7
-        {"C", "P", "b", "q", "k", "b", "p", "c"}, // 8
+        {"N", "P", "0", "0", "0", "0", "p", "n"}, // 7
+        {"C", "P", "0", "0", "0", "0", "p", "c"}, // 8
 
     }; //     A    B    C    D    E    F    G    H
 
+    boolean checkPlayer1 = false;
+    boolean checkPlayer2 = false;
+    int count = 0; // Starts at 0
 
 
 
@@ -50,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         resetBoard(board);
-        board[5][1] = "x";
 
         // Instantiates image buttons for board
         ImageButton A1 = findViewById(R.id.A1);
@@ -191,10 +192,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         count++;
-        if (count % 4 == 1) { player1before = (ImageButton) v; }
-        else if (count % 4 == 2){ player1after = (ImageButton) v;move(player1before, player1after); }
-        else if (count % 4 == 3){ player2before = (ImageButton) v; }
-        else if (count % 4 == 0){ player2after = (ImageButton) v; move(player2before, player2after); }
+        if (count % 4 == 1) { // check if white piece is selected (increment count if selected)
+            player1before = (ImageButton) v;
+        }
+        else if (count % 4 == 2){ // check if open space is selected (increment count if selected) then move
+            player1after = (ImageButton) v;move(player1before, player1after); }
+        else if (count % 4 == 3){  // check if black piece is selected (increment count if selected)
+            player2before = (ImageButton) v;
+        }
+        else if (count % 4 == 0){ // check if open space is selected (increment count if selected) then move
+            player2after = (ImageButton) v;
+            move(player2before, player2after);
+        }
     }
 
 
@@ -344,6 +353,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             // bishops
+            if (board[beforex][beforey].equals("B")) {
+                for (int i = 0; i <= 8; i++) {
+                    // forward right
+                    if (beforey + i == aftery && beforex + i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "B";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.bishopwhite);
+                        return true;
+                    }
+                    // forward left
+                    if (beforey + i == aftery && beforex - i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "B";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.bishopwhite);
+                        return true;
+                    }
+                    // backwards right
+                    if (beforey - i == aftery && beforex + i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "B";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.bishopwhite);
+                        return true;
+                    }
+                    // backwards left
+                    if (beforey - i == aftery && beforex - i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "B";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.bishopwhite);
+                        return true;
+                    }
+                }
+            }
 
             // queens
             if (board[beforex][beforey].equals("Q")) {
@@ -365,7 +410,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
                     }
                     // right
-                    if (beforex + i == aftery) {
+                    if (beforex + i == afterx) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "Q";
                         before.setImageResource(R.drawable.nothing);
@@ -373,7 +418,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
                     }
                     // left
-                    if (beforex - i == aftery) {
+                    if (beforex - i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "Q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenwhite);
+                        return true;
+                    }
+                    // forward right
+                    if (beforey + i == aftery && beforex + i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "Q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenwhite);
+                        return true;
+                    }
+                    // forward left
+                    if (beforey + i == aftery && beforex - i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "Q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenwhite);
+                        return true;
+                    }
+                    // backwards right
+                    if (beforey - i == aftery && beforex + i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "Q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenwhite);
+                        return true;
+                    }
+                    // backwards left
+                    if (beforey - i == aftery && beforex - i == afterx) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "Q";
                         before.setImageResource(R.drawable.nothing);
@@ -394,13 +471,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // pawns
             if (board[beforex][beforey].equals("p")) {
                 // forward
-                for (int i = 0; i <= 2; i--) {
-                    if (Character.isLowerCase(getCharFromString(board[beforex][beforey + i], 0))) {
-                        break;
-                    }
-                    if (beforex == afterx && aftery == beforey + i) {
+                for (int i = 1; i <= 2; i++) {
+
+                    if (beforex == afterx && aftery == beforey - i) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "P";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.pawnblack);
                         return true;
                     }
                 }
@@ -408,6 +485,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey - 1 == aftery) {
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "P";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.queenwhite);
                     return true;
                 }
             }
@@ -419,24 +498,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (beforey + i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "c";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.rookblack);
                         return true;
                     }
                     // backward
                     if (beforey - i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "c";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.rookblack);
                         return true;
                     }
                     // right
                     if (beforex + i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "c";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.rookblack);
                         return true;
                     }
                     // left
                     if (beforex - i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "c";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.rookblack);
                         return true;
                     }
                 }
@@ -448,12 +535,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey + 2 == aftery) {
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "n";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.knightblack);
                     return true;
                 }
                 // backward
                 if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey - 2 == aftery) {
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "n";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.knightblack);
                     return true;
                 }
 
@@ -461,16 +552,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex + 2 == afterx) {
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "n";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.knightblack);
                     return true;
                 }
                 // left
                 if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex - 2 == afterx) {
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "n";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.knightblack);
                     return true;
                 }
             }
             // bishops
+            if (board[beforex][beforey].equals("b")) {
+                for (int i = 0; i <= 8; i++) {
+                    // forward right
+                    if (beforey - i == aftery && beforex + i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "b";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.bishopblack);
+                        return true;
+                    }
+                    // forward left
+                    if (beforey - i == aftery && beforex - i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "b";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.bishopblack);
+                        return true;
+                    }
+                    // backwards right
+                    if (beforey + i == aftery && beforex + i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "b";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.bishopblack);
+                        return true;
+                    }
+                    // backwards left
+                    if (beforey + i == aftery && beforex - i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "b";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.bishopblack);
+                        return true;
+                    }
+                }
+            }
 
             // queens
             if (board[beforex][beforey].equals("q")) {
@@ -479,24 +610,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (beforey + i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenblack);
                         return true;
                     }
                     // backward
                     if (beforey - i == aftery) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenblack);
                         return true;
                     }
                     // right
-                    if (beforex + i == aftery) {
+                    if (beforex + i == afterx) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenblack);
                         return true;
                     }
                     // left
-                    if (beforex - i == aftery) {
+                    if (beforex - i == afterx) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenblack);
+                        return true;
+                    }
+                    // forward right
+                    if (beforey + i == aftery && beforex + i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenblack);
+                        return true;
+                    }
+                    // forward left
+                    if (beforey + i == aftery && beforex - i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenblack);
+                        return true;
+                    }
+                    // backwards right
+                    if (beforey - i == aftery && beforex + i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenblack);
+                        return true;
+                    }
+                    // backwards left
+                    if (beforey - i == aftery && beforex - i == afterx) {
+                        board[beforex][beforey] = "0";
+                        board[afterx][aftery] = "q";
+                        before.setImageResource(R.drawable.nothing);
+                        after.setImageResource(R.drawable.queenblack);
                         return true;
                     }
                 }
