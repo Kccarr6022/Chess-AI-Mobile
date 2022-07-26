@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
                     }
                     // right
-                    if (beforex + i == aftery) {
+                    if (beforex + i == afterx) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "C";
                         before.setImageResource(R.drawable.nothing);
@@ -305,7 +305,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
                     }
                     // left
-                    if (beforex - i == aftery) {
+                    if (beforex - i == afterx) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "C";
                         before.setImageResource(R.drawable.nothing);
@@ -461,6 +461,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             // kings
+            if (board[beforex][beforey].equals("K")) {
+                // forward
+                if (beforey + 1 == aftery) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "K";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.kingwhite);
+                }
+                // right
+                if (beforex + 1 == afterx) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "K";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.kingwhite);
+                }
+                // backward
+                if (beforey - 1 == aftery) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "K";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.kingwhite);
+                }
+                // left
+                if (beforex - 1 == afterx) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "K";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.kingwhite);
+                }
+            }
 
             // nothing (out of bounds) <- buttons(unlikely)
 
@@ -475,7 +505,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     if (beforex == afterx && aftery == beforey - i) {
                         board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "P";
+                        board[afterx][aftery] = "p";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.pawnblack);
                         return true;
@@ -484,9 +514,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // diagonal take
                 if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey - 1 == aftery) {
                     board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "P";
+                    board[afterx][aftery] = "p";
                     before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.queenwhite);
+                    after.setImageResource(R.drawable.pawnblack);
                     return true;
                 }
             }
@@ -511,7 +541,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
                     }
                     // right
-                    if (beforex + i == aftery) {
+                    if (beforex + i == afterx) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "c";
                         before.setImageResource(R.drawable.nothing);
@@ -519,7 +549,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         return true;
                     }
                     // left
-                    if (beforex - i == aftery) {
+                    if (beforex - i == afterx) {
                         board[beforex][beforey] = "0";
                         board[afterx][aftery] = "c";
                         before.setImageResource(R.drawable.nothing);
@@ -674,6 +704,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             // kings
+            if (board[beforex][beforey].equals("k")) {
+                // forward
+                if (beforey - 1 == aftery) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "k";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.kingblack);
+                }
+                // right
+                if (beforex + 1 == afterx) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "k";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.kingblack);
+                }
+                // backward
+                if (beforey + 1 == aftery) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "k";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.kingblack);
+                }
+                // left
+                if (beforex - 1 == afterx) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "k";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.kingblack);
+                }
+            }
 
             // nothing (out of bounds) <- buttons(unlikely)
         }
