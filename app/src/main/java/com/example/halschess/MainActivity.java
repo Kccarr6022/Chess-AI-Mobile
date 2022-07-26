@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     boolean checkPlayer1 = false;
     boolean checkPlayer2 = false;
+    boolean castlePlayer1 = true;
+    boolean castlePlayer2 = true;
     int count = 0; // Starts at 0
 
 
@@ -462,6 +465,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // kings
             if (board[beforex][beforey].equals("K")) {
+                // castles
+                if (castlePlayer1 && (beforex == 4 && beforey == 0)
+                        && (afterx == 6 && aftery  == 0 || afterx == 2 && aftery  == 0 )) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "K";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.kingwhite);
+                    if (afterx == 6) { // right castle
+                        board[5][0] = "R";
+                        board[7][0] = "0";
+                        ((ImageView)findViewById(R.id.F1)).setImageResource(R.drawable.rookwhite);
+                        ((ImageView)findViewById(R.id.H1)).setImageResource(R.drawable.nothing);
+                    } else { // left castle
+                        board[3][0] = "R";
+                        board[0][0] = "0";
+                        ((ImageView)findViewById(R.id.D1)).setImageResource(R.drawable.rookwhite);
+                        ((ImageView)findViewById(R.id.A1)).setImageResource(R.drawable.nothing);
+                    }
+                    castlePlayer1 = false;
+                    return true;
+
+                }
                 // forward
                 if (beforey + 1 == aftery) {
                     board[beforex][beforey] = "0";
@@ -705,8 +730,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // kings
             if (board[beforex][beforey].equals("k")) {
+                // castles
+                if (castlePlayer2 && (beforex == 4 && beforey == 7)
+                        && (afterx == 6 && aftery  == 7 || afterx == 2 && aftery  == 7 )) {
+                    board[beforex][beforey] = "0";
+                    board[afterx][aftery] = "k";
+                    before.setImageResource(R.drawable.nothing);
+                    after.setImageResource(R.drawable.kingblack);
+                    if (afterx == 6) { // right castle
+                        board[5][7] = "r";
+                        board[7][7] = "0";
+                        ((ImageView)findViewById(R.id.F8)).setImageResource(R.drawable.rookblack);
+                        ((ImageView)findViewById(R.id.H8)).setImageResource(R.drawable.nothing);
+                    } else { // left castle
+                        board[3][7] = "r";
+                        board[0][7] = "0";
+                        ((ImageView)findViewById(R.id.D8)).setImageResource(R.drawable.rookblack);
+                        ((ImageView)findViewById(R.id.A8)).setImageResource(R.drawable.nothing);
+                    }
+                    castlePlayer2 = false;
+                    return true;
+
+                }
                 // forward
                 if (beforey - 1 == aftery) {
+                    castlePlayer2 = false;
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "k";
                     before.setImageResource(R.drawable.nothing);
@@ -714,6 +762,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 // right
                 if (beforex + 1 == afterx) {
+                    castlePlayer2 = false;
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "k";
                     before.setImageResource(R.drawable.nothing);
@@ -721,6 +770,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 // backward
                 if (beforey + 1 == aftery) {
+                    castlePlayer2 = false;
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "k";
                     before.setImageResource(R.drawable.nothing);
@@ -728,6 +778,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 // left
                 if (beforex - 1 == afterx) {
+                    castlePlayer2 = false;
                     board[beforex][beforey] = "0";
                     board[afterx][aftery] = "k";
                     before.setImageResource(R.drawable.nothing);
