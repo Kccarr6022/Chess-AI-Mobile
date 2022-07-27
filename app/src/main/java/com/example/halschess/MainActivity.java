@@ -40,7 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean checkPlayer2 = false;
     boolean castlePlayer1 = true;
     boolean castlePlayer2 = true;
-    int count = 0; // Starts at 0
+    int beforeX;
+    int beforeY;
+    int afterX;
+    int afterY;
+    int moveCount = 1; // Starts at 0
 
 
 
@@ -194,18 +198,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        count++;
-        if (count % 4 == 1) { // check if white piece is selected (increment count if selected)
+        if (moveCount % 4 == 1) { // check if white piece is selected (increment moveCount if selected)
             player1before = (ImageButton) v;
+            locationBefore(player1before);
+            if (Character.isUpperCase(getCharFromString(board[beforeX][beforeY], 0))) {
+                Log.d("move", "Move count is " + Integer.toString(moveCount % 4));
+                moveCount++;
+            } else {
+                "".toString();
+            }
         }
-        else if (count % 4 == 2){ // check if open space is selected (increment count if selected) then move
-            player1after = (ImageButton) v;move(player1before, player1after); }
-        else if (count % 4 == 3){  // check if black piece is selected (increment count if selected)
+        else if (moveCount % 4 == 2){ // check if not capital space is selected (increment moveCount if selected) then move
+            player1after = (ImageButton) v;
+            locationAfter(player1after);
+            if (!Character.isUpperCase(getCharFromString(board[afterX][afterY], 0))) {
+                Log.d("move", "Move count is " + Integer.toString(moveCount % 4));
+                if (move(player1before, player1after)) {
+                    moveCount++;
+                } else {
+                    moveCount--;
+                }
+            } else if (Character.isUpperCase(getCharFromString(board[afterX][afterY], 0))) {
+                moveCount--;
+            }
+        }
+        else if (moveCount % 4 == 3){  // check if black piece is selected (increment moveCount if selected)
             player2before = (ImageButton) v;
+            locationBefore(player2before);
+            if (Character.isLowerCase(getCharFromString(board[beforeX][beforeY], 0))) {
+                Log.d("move", "Move count is " + Integer.toString(moveCount % 4));
+                moveCount++;
+            }
         }
-        else if (count % 4 == 0){ // check if open space is selected (increment count if selected) then move
+        else if (moveCount % 4 == 0){ // check if open space is selected (increment moveCount if selected) then move
             player2after = (ImageButton) v;
-            move(player2before, player2after);
+            locationAfter(player2after);
+            if (!Character.isLowerCase(getCharFromString(board[afterX][afterY], 0))) {
+                Log.d("move", "Move count is " + Integer.toString(moveCount % 4));
+                 if (move(player2before, player2after)) {
+                     moveCount++;
+                 } else {
+                     moveCount--;
+                 }
+            } else if(Character.isLowerCase(getCharFromString(board[beforeX][beforeY], 0))) {
+                moveCount--;
+            }
         }
     }
 
@@ -233,14 +270,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public boolean move(ImageButton before, ImageButton after) { // Takes two (A-H)(1-8) strings
-        int beforex = Character.toUpperCase(getCharFromString(before.getTag().toString(), 0)) - 'A';
-        int beforey = getCharFromString(before.getTag().toString(), 1) - '1';
-        int afterx = Character.toUpperCase(getCharFromString(after.getTag().toString(), 0)) - 'A';
-        int aftery = getCharFromString(after.getTag().toString(), 1) - '1';
-        String status = "Move 1 is " + Integer.toString(beforex) + Integer.toString(beforey) +
-                ". Move 2 is " + Integer.toString(afterx) + Integer.toString(aftery);
+        locationBefore(before); // updates coordinates
+        locationAfter(after); // updates coordinates
+        if (before == after) { return false; }
+
+        String status = "Move 1 is " + Integer.toString(beforeX) + Integer.toString(beforeY) +
+                ". Move 2 is " + Integer.toString(afterX) + Integer.toString(afterY);
         Log.d("move", status);
-        Log.d("move ", board[beforex][beforey]);
+        Log.d("move ", board[beforeX][beforeY]);
         String line = "";
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
@@ -252,65 +289,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("move", "\n");
             line = "";
         }
-        char piece = getCharFromString(board[beforex][beforey], 0);
+        char piece = getCharFromString(board[beforeX][beforeY], 0);
 
 
         // white
         if (Character.isUpperCase(piece)  &&
-                (!Character.isUpperCase(getCharFromString(board[afterx][aftery], 0)))){
+                (!Character.isUpperCase(getCharFromString(board[afterX][afterY], 0)))){
             // pawns
             if (piece == 'P') {
-                // forward
-                for (int i = 0; i <= 2; i++) {
-                    if (beforex == afterx && aftery == beforey + i) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "P";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.pawnwhite);
-                        return true;
+                    if (movePawn((1))) { // switches between 1 and 2
+                        placePiece(before, after); return true;
                     }
-                }
-                // diagonal take
-                if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey + 1 == aftery) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "P";
-                    before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.pawnwhite);
-                    return true;
-                }
             }
 
             // castles
-            if (board[beforex][beforey].equals("C")) {
+            if (board[beforeX][beforeY].equals("C")) {
                 for (int i = 0; i <= 8; i++) {
                     // forward
-                    if (beforey + i == aftery) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "C";
+                    if (beforeY + i == afterY) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "C";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.rookwhite);
                         return true;
                     }
                     // backward
-                    if (beforey - i == aftery) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "C";
+                    if (beforeY - i == afterY) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "C";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.rookwhite);
                         return true;
                     }
                     // right
-                    if (beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "C";
+                    if (beforeX + i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "C";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.rookwhite);
                         return true;
                     }
                     // left
-                    if (beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "C";
+                    if (beforeX - i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "C";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.rookwhite);
                         return true;
@@ -319,36 +341,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             // knights
-            if (board[beforex][beforey].equals("N")) {
+            if (board[beforeX][beforeY].equals("N")) {
                 // forward
-                if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey + 2 == aftery) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "N";
+                if ((beforeX + 1 == afterX || beforeX - 1 == afterX) && beforeY + 2 == afterY) {
+                    board[beforeX][beforeY] = "0";
+                    board[afterX][afterY] = "N";
                     before.setImageResource(R.drawable.nothing);
                     after.setImageResource(R.drawable.knightwhite);
                     return true;
                 }
                 // backward
-                if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey - 2 == aftery) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "N";
+                if ((beforeX + 1 == afterX || beforeX - 1 == afterX) && beforeY - 2 == afterY) {
+                    board[beforeX][beforeY] = "0";
+                    board[afterX][afterY] = "N";
                     before.setImageResource(R.drawable.nothing);
                     after.setImageResource(R.drawable.knightwhite);
                     return true;
                 }
 
                 // right
-                if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex + 2 == afterx) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "N";
+                if ((beforeY + 1 == afterY || beforeY - 1 == afterY) && beforeX + 2 == afterX) {
+                    board[beforeX][beforeY] = "0";
+                    board[afterX][afterY] = "N";
                     before.setImageResource(R.drawable.nothing);
                     after.setImageResource(R.drawable.knightwhite);
                     return true;
                 }
                 // left
-                if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex - 2 == afterx) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "N";
+                if ((beforeY + 1 == afterY || beforeY - 1 == afterY) && beforeX - 2 == afterX) {
+                    board[beforeX][beforeY] = "0";
+                    board[afterX][afterY] = "N";
                     before.setImageResource(R.drawable.nothing);
                     after.setImageResource(R.drawable.knightwhite);
                     return true;
@@ -356,36 +378,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             // bishops
-            if (board[beforex][beforey].equals("B")) {
+            if (board[beforeX][beforeY].equals("B")) {
                 for (int i = 0; i <= 8; i++) {
                     // forward right
-                    if (beforey + i == aftery && beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "B";
+                    if (beforeY + i == afterY && beforeX + i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "B";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.bishopwhite);
                         return true;
                     }
                     // forward left
-                    if (beforey + i == aftery && beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "B";
+                    if (beforeY + i == afterY && beforeX - i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "B";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.bishopwhite);
                         return true;
                     }
                     // backwards right
-                    if (beforey - i == aftery && beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "B";
+                    if (beforeY - i == afterY && beforeX + i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "B";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.bishopwhite);
                         return true;
                     }
                     // backwards left
-                    if (beforey - i == aftery && beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "B";
+                    if (beforeY - i == afterY && beforeX - i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "B";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.bishopwhite);
                         return true;
@@ -394,68 +416,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             // queens
-            if (board[beforex][beforey].equals("Q")) {
+            if (board[beforeX][beforeY].equals("Q")) {
                 for (int i = 0; i <= 8; i++) {
                     // forward
-                    if (beforey + i == aftery) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "Q";
+                    if (beforeY + i == afterY) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "Q";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.queenwhite);
                         return true;
                     }
                     // backward
-                    if (beforey - i == aftery) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "Q";
+                    if (beforeY - i == afterY) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "Q";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.queenwhite);
                         return true;
                     }
                     // right
-                    if (beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "Q";
+                    if (beforeX + i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "Q";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.queenwhite);
                         return true;
                     }
                     // left
-                    if (beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "Q";
+                    if (beforeX - i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "Q";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.queenwhite);
                         return true;
                     }
                     // forward right
-                    if (beforey + i == aftery && beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "Q";
+                    if (beforeY + i == afterY && beforeX + i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "Q";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.queenwhite);
                         return true;
                     }
                     // forward left
-                    if (beforey + i == aftery && beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "Q";
+                    if (beforeY + i == afterY && beforeX - i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "Q";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.queenwhite);
                         return true;
                     }
                     // backwards right
-                    if (beforey - i == aftery && beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "Q";
+                    if (beforeY - i == afterY && beforeX + i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "Q";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.queenwhite);
                         return true;
                     }
                     // backwards left
-                    if (beforey - i == aftery && beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "Q";
+                    if (beforeY - i == afterY && beforeX - i == afterX) {
+                        board[beforeX][beforeY] = "0";
+                        board[afterX][afterY] = "Q";
                         before.setImageResource(R.drawable.nothing);
                         after.setImageResource(R.drawable.queenwhite);
                         return true;
@@ -464,15 +486,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             // kings
-            if (board[beforex][beforey].equals("K")) {
+            if (board[beforeX][beforeY].equals("K")) {
                 // castles
-                if (castlePlayer1 && (beforex == 4 && beforey == 0)
-                        && (afterx == 6 && aftery  == 0 || afterx == 2 && aftery  == 0 )) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "K";
+                if (castlePlayer1 && (beforeX == 4 && beforeY == 0)
+                        && (afterX == 6 && afterY  == 0 || afterX == 2 && afterY  == 0 )) {
+                    board[beforeX][beforeY] = "0";
+                    board[afterX][afterY] = "K";
                     before.setImageResource(R.drawable.nothing);
                     after.setImageResource(R.drawable.kingwhite);
-                    if (afterx == 6) { // right castle
+                    if (afterX == 6) { // right castle
                         board[5][0] = "R";
                         board[7][0] = "0";
                         ((ImageView)findViewById(R.id.F1)).setImageResource(R.drawable.rookwhite);
@@ -488,30 +510,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
                 // forward
-                if (beforey + 1 == aftery) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "K";
+                if (beforeY + 1 == afterY) {
+                    board[beforeX][beforeY] = "0";
+                    board[afterX][afterY] = "K";
                     before.setImageResource(R.drawable.nothing);
                     after.setImageResource(R.drawable.kingwhite);
                 }
                 // right
-                if (beforex + 1 == afterx) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "K";
+                if (beforeX + 1 == afterX) {
+                    board[beforeX][beforeY] = "0";
+                    board[afterX][afterY] = "K";
                     before.setImageResource(R.drawable.nothing);
                     after.setImageResource(R.drawable.kingwhite);
                 }
                 // backward
-                if (beforey - 1 == aftery) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "K";
+                if (beforeY - 1 == afterY) {
+                    board[beforeX][beforeY] = "0";
+                    board[afterX][afterY] = "K";
                     before.setImageResource(R.drawable.nothing);
                     after.setImageResource(R.drawable.kingwhite);
                 }
                 // left
-                if (beforex - 1 == afterx) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "K";
+                if (beforeX - 1 == afterX) {
+                    board[beforeX][beforeY] = "0";
+                    board[afterX][afterY] = "K";
                     before.setImageResource(R.drawable.nothing);
                     after.setImageResource(R.drawable.kingwhite);
                 }
@@ -521,268 +543,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // black
         } else if (Character.isLowerCase(piece)  &&
-                (!Character.isLowerCase(getCharFromString(board[afterx][aftery], 0)))){
+                (!Character.isLowerCase(getCharFromString(board[afterX][afterY], 0)))){
 
             // pawns
-            if (board[beforex][beforey].equals("p")) {
-                // forward
-                for (int i = 1; i <= 2; i++) {
-
-                    if (beforex == afterx && aftery == beforey - i) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "p";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.pawnblack);
-                        return true;
-                    }
-                }
-                // diagonal take
-                if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey - 1 == aftery) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "p";
-                    before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.pawnblack);
-                    return true;
+            if (board[beforeX][beforeY].equals("p")) {
+                if (movePawn(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
+                    placePiece(before, after); return true;
                 }
             }
 
             // castles
-            if (board[beforex][beforey].equals("c")) {
-                for (int i = 0; i <= 8; i++) {
-                    // forward
-                    if (beforey + i == aftery) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "c";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.rookblack);
-                        return true;
-                    }
-                    // backward
-                    if (beforey - i == aftery) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "c";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.rookblack);
-                        return true;
-                    }
-                    // right
-                    if (beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "c";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.rookblack);
-                        return true;
-                    }
-                    // left
-                    if (beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "c";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.rookblack);
-                        return true;
-                    }
+            if (board[beforeX][beforeY].equals("c")) {
+                if (moveCastle(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
+                    placePiece(before, after); return true;
                 }
             }
 
             // knights
-            if (board[beforex][beforey].equals("n")) {
-                // forward
-                if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey + 2 == aftery) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "n";
-                    before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.knightblack);
-                    return true;
-                }
-                // backward
-                if ((beforex + 1 == afterx || beforex - 1 == afterx) && beforey - 2 == aftery) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "n";
-                    before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.knightblack);
-                    return true;
-                }
-
-                // right
-                if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex + 2 == afterx) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "n";
-                    before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.knightblack);
-                    return true;
-                }
-                // left
-                if ((beforey + 1 == aftery || beforey - 1 == aftery) && beforex - 2 == afterx) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "n";
-                    before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.knightblack);
-                    return true;
+            if (board[beforeX][beforeY].equals("n")) {
+                if (moveKnight(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
+                    placePiece(before, after); return true;
                 }
             }
             // bishops
-            if (board[beforex][beforey].equals("b")) {
-                for (int i = 0; i <= 8; i++) {
-                    // forward right
-                    if (beforey - i == aftery && beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "b";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.bishopblack);
-                        return true;
-                    }
-                    // forward left
-                    if (beforey - i == aftery && beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "b";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.bishopblack);
-                        return true;
-                    }
-                    // backwards right
-                    if (beforey + i == aftery && beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "b";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.bishopblack);
-                        return true;
-                    }
-                    // backwards left
-                    if (beforey + i == aftery && beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "b";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.bishopblack);
-                        return true;
-                    }
+            if (board[beforeX][beforeY].equals("b")) {
+                if (moveBishop(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
+                    placePiece(before, after); return true;
                 }
             }
 
             // queens
-            if (board[beforex][beforey].equals("q")) {
-                for (int i = 0; i <= 8; i++) {
-                    // forward
-                    if (beforey + i == aftery) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "q";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.queenblack);
-                        return true;
-                    }
-                    // backward
-                    if (beforey - i == aftery) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "q";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.queenblack);
-                        return true;
-                    }
-                    // right
-                    if (beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "q";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.queenblack);
-                        return true;
-                    }
-                    // left
-                    if (beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "q";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.queenblack);
-                        return true;
-                    }
-                    // forward right
-                    if (beforey + i == aftery && beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "q";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.queenblack);
-                        return true;
-                    }
-                    // forward left
-                    if (beforey + i == aftery && beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "q";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.queenblack);
-                        return true;
-                    }
-                    // backwards right
-                    if (beforey - i == aftery && beforex + i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "q";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.queenblack);
-                        return true;
-                    }
-                    // backwards left
-                    if (beforey - i == aftery && beforex - i == afterx) {
-                        board[beforex][beforey] = "0";
-                        board[afterx][aftery] = "q";
-                        before.setImageResource(R.drawable.nothing);
-                        after.setImageResource(R.drawable.queenblack);
-                        return true;
-                    }
+            if (board[beforeX][beforeY].equals("q")) {
+                if (moveQueen(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
+                    placePiece(before, after); return true;
                 }
             }
 
             // kings
-            if (board[beforex][beforey].equals("k")) {
-                // castles
-                if (castlePlayer2 && (beforex == 4 && beforey == 7)
-                        && (afterx == 6 && aftery  == 7 || afterx == 2 && aftery  == 7 )) {
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "k";
-                    before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.kingblack);
-                    if (afterx == 6) { // right castle
-                        board[5][7] = "r";
-                        board[7][7] = "0";
-                        ((ImageView)findViewById(R.id.F8)).setImageResource(R.drawable.rookblack);
-                        ((ImageView)findViewById(R.id.H8)).setImageResource(R.drawable.nothing);
-                    } else { // left castle
-                        board[3][7] = "r";
-                        board[0][7] = "0";
-                        ((ImageView)findViewById(R.id.D8)).setImageResource(R.drawable.rookblack);
-                        ((ImageView)findViewById(R.id.A8)).setImageResource(R.drawable.nothing);
-                    }
-                    castlePlayer2 = false;
-                    return true;
-
-                }
-                // forward
-                if (beforey - 1 == aftery) {
-                    castlePlayer2 = false;
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "k";
-                    before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.kingblack);
-                }
-                // right
-                if (beforex + 1 == afterx) {
-                    castlePlayer2 = false;
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "k";
-                    before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.kingblack);
-                }
-                // backward
-                if (beforey + 1 == aftery) {
-                    castlePlayer2 = false;
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "k";
-                    before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.kingblack);
-                }
-                // left
-                if (beforex - 1 == afterx) {
-                    castlePlayer2 = false;
-                    board[beforex][beforey] = "0";
-                    board[afterx][aftery] = "k";
-                    before.setImageResource(R.drawable.nothing);
-                    after.setImageResource(R.drawable.kingblack);
+            if (board[beforeX][beforeY].equals("k")) {
+                if (moveKing(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
+                    placePiece(before, after); return true;
                 }
             }
 
@@ -794,6 +594,301 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
+    public boolean movePawn(int player) {
+        String piece;
+        if (player == 1) {
+            piece = "P";
+        } else {
+            piece = "p";
+        }
+        // forward
+        for (int i = 1; i <= 2; i++) {
+            if (beforeX == afterX && afterY == beforeY - i) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+        }
+        // diagonal take
+        if ((beforeX + 1 == afterX || beforeX - 1 == afterX) && beforeY - 1 == afterY) {
+            board[beforeX][beforeY] = "0";
+            board[afterX][afterY] = piece;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean moveCastle(int player) {
+        String piece;
+        if (player == 1) {
+            piece = "C";
+        } else {
+            piece = "c";
+        }
+        for (int i = 0; i <= 8; i++) {
+            // forward
+            if (beforeY + i == afterY && beforeX == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // backward
+            if (beforeY - i == afterY && beforeX == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // right
+            if (beforeX + i == afterX && beforeY == afterY) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // left
+            if (beforeX - i == afterX && beforeY == afterY) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean moveKnight(int player) {
+        String piece;
+        if (player == 1) {
+            piece = "N";
+        } else {
+            piece = "n";
+        }
+        // forward
+        if ((beforeX + 1 == afterX || beforeX - 1 == afterX) && beforeY + 2 == afterY) {
+            board[beforeX][beforeY] = "0";
+            board[afterX][afterY] = piece;
+            return true;
+        }
+        // backward
+        if ((beforeX + 1 == afterX || beforeX - 1 == afterX) && beforeY - 2 == afterY) {
+            board[beforeX][beforeY] = "0";
+            board[afterX][afterY] = piece;
+            return true;
+        }
+
+        // right
+        if ((beforeY + 1 == afterY || beforeY - 1 == afterY) && beforeX + 2 == afterX) {
+            board[beforeX][beforeY] = "0";
+            board[afterX][afterY] = piece;
+            return true;
+        }
+        // left
+        if ((beforeY + 1 == afterY || beforeY - 1 == afterY) && beforeX - 2 == afterX) {
+            board[beforeX][beforeY] = "0";
+            board[afterX][afterY] = piece;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean moveBishop(int player) {
+        String piece;
+        if (player == 1) {
+            piece = "B";
+        } else {
+            piece = "b";
+        }
+        for (int i = 0; i <= 8; i++) {
+            // forward right
+            if (beforeY - i == afterY && beforeX + i == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // forward left
+            if (beforeY - i == afterY && beforeX - i == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // backwards right
+            if (beforeY + i == afterY && beforeX + i == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // backwards left
+            if (beforeY + i == afterY && beforeX - i == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean moveQueen(int player) {
+        String piece;
+        if (player == 1) {
+            piece = "Q";
+        } else {
+            piece = "q";
+        }
+        for (int i = 0; i <= 8; i++) {
+            // forward
+            if (beforeY + i == afterY && beforeX == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // backward
+            if (beforeY - i == afterY && beforeX == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // right
+            if (beforeX + i == afterX && beforeY == afterY) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // left
+            if (beforeX - i == afterX && beforeY == afterY) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // forward right
+            if (beforeY + i == afterY && beforeX + i == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // forward left
+            if (beforeY + i == afterY && beforeX - i == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // backwards right
+            if (beforeY - i == afterY && beforeX + i == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            // backwards left
+            if (beforeY - i == afterY && beforeX - i == afterX) {
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean moveKing(int player) { // player 1 or 2
+        String piece, rook;
+        if (player == 1) {
+            piece = "K";
+            rook = "R";
+        } else {
+            piece = "k";
+            rook = "r";
+        }
+        // castles
+        if (castlePlayer2 && (beforeX == 4 && beforeY == 7)
+                && (afterX == 6 && afterY  == 7 || afterX == 2 && afterY  == 7 )) {
+            board[beforeX][beforeY] = "0";
+            board[afterX][afterY] = piece;
+            if (afterX == 6) { // right castle
+                board[5][7] = rook;
+                board[7][7] = "0";
+                ((ImageView)findViewById(R.id.F8)).setImageResource(R.drawable.rookblack);
+                ((ImageView)findViewById(R.id.H8)).setImageResource(R.drawable.nothing);
+            } else { // left castle
+                board[3][7] = rook;
+                board[0][7] = "0";
+                ((ImageView)findViewById(R.id.D8)).setImageResource(R.drawable.rookblack);
+                ((ImageView)findViewById(R.id.A8)).setImageResource(R.drawable.nothing);
+            }
+            return true;
+
+        }
+        // forward
+        if (beforeY - 1 == afterY) {
+            board[beforeX][beforeY] = "0";
+            board[afterX][afterY] = piece;
+            return true;
+        }
+        // right
+        if (beforeX + 1 == afterX) {
+            castlePlayer2 = false;
+            board[beforeX][beforeY] = "0";
+            board[afterX][afterY] = piece;
+            return true;
+        }
+        // backward
+        if (beforeY + 1 == afterY) {
+            board[beforeX][beforeY] = "0";
+            board[afterX][afterY] = piece;
+            return true;
+        }
+        // left
+        if (beforeX - 1 == afterX) {
+            board[beforeX][beforeY] = "0";
+            board[afterX][afterY] = piece;
+            return true;
+        }
+        if (player == 1) {
+            castlePlayer1 = false;
+        } else {
+            castlePlayer2 = false;
+        }
+        return false;
+    }
+
+    public void locationBefore(ImageButton v) {
+        beforeX = Character.toUpperCase(getCharFromString(v.getTag().toString(), 0)) - 'A';
+        beforeY = getCharFromString(v.getTag().toString(), 1) - '1';
+    }
+
+    public void locationAfter(ImageButton v) {
+        afterX = Character.toUpperCase(getCharFromString(v.getTag().toString(), 0)) - 'A';
+        afterY = getCharFromString(v.getTag().toString(), 1) - '1';
+    }
+
+    public void placePiece(ImageButton before, ImageButton after) {
+        before.setImageResource(R.drawable.nothing);
+        switch(board[afterX][afterY]) {
+            case "P":
+                after.setImageResource(R.drawable.pawnwhite); break;
+            case "p":
+                after.setImageResource(R.drawable.pawnblack); break;
+            case "C":
+                after.setImageResource(R.drawable.rookwhite); break;
+            case "c":
+                after.setImageResource(R.drawable.rookblack); break;
+            case "N":
+                after.setImageResource(R.drawable.knightwhite); break;
+            case "n":
+                after.setImageResource(R.drawable.knightblack); break;
+            case "B":
+                after.setImageResource(R.drawable.bishopwhite); break;
+            case "b":
+                after.setImageResource(R.drawable.bishopblack); break;
+            case "Q":
+                after.setImageResource(R.drawable.queenwhite); break;
+            case "q":
+                after.setImageResource(R.drawable.queenblack); break;
+            case "K":
+                after.setImageResource(R.drawable.kingwhite); break;
+            case "k":
+                after.setImageResource(R.drawable.kingblack); break;
+            default:
+                break;
+        }
+    }
+
+
     public boolean checkWin() {
         return true;
     }
@@ -801,6 +896,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean gameOver() {
         return true;
     }
+
 
 
 
