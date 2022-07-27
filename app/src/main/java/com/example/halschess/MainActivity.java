@@ -270,8 +270,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public boolean move(ImageButton before, ImageButton after) { // Takes two (A-H)(1-8) strings
-        locationBefore(before); // updates coordinates
-        locationAfter(after); // updates coordinates
         if (before == after) { return false; }
 
         String status = "Move 1 is " + Integer.toString(beforeX) + Integer.toString(beforeY) +
@@ -297,7 +295,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 (!Character.isUpperCase(getCharFromString(board[afterX][afterY], 0)))){
             // pawns
             if (piece == 'P') {
+                Log.d("move", "P detected");
                     if (movePawn((1))) { // switches between 1 and 2
+                        Log.d("move", "movePawn works");
                         placePiece(before, after); return true;
                     }
             }
@@ -598,12 +598,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String piece;
         if (player == 1) {
             piece = "P";
+            Log.d("move", "Player 1 where piece is \"P\"");
         } else {
             piece = "p";
         }
         // forward
         for (int i = 1; i <= 2; i++) {
-            if (beforeX == afterX && afterY == beforeY - i) {
+            if (beforeX == afterX && afterY == beforeY - i) { // player 2
+                Log.d("move", "Loads forward");
+                board[beforeX][beforeY] = "0";
+                board[afterX][afterY] = piece;
+                return true;
+            }
+            if (beforeX == afterX && afterY == beforeY + i) { // player 1
+                Log.d("move", "Loads forward");
                 board[beforeX][beforeY] = "0";
                 board[afterX][afterY] = piece;
                 return true;
