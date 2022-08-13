@@ -2,7 +2,7 @@ package com.example.halschess;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.Image;
+import android.os.Bundle;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,8 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     boolean checkPlayer1 = false;
     boolean checkPlayer2 = false;
-    boolean castlePlayer1 = true;
-    boolean castlePlayer2 = true;
+    boolean castlePlayer1left = true;
+    boolean castlePlayer1right = true;
+    boolean castlePlayer2left = true;
+    boolean castlePlayer2right = true;
     int beforeX;
     int beforeY;
     int afterX;
@@ -288,6 +290,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             line = "";
         }
         char piece = getCharFromString(board[beforeX][beforeY], 0);
+        int player = ((moveCount - 1)/2 % 2)+ 1;
+        Log.d("move", Integer.toString(player));
 
 
         // white
@@ -297,43 +301,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 (!Character.isLowerCase(getCharFromString(board[afterX][afterY], 0))))){
 
             // pawns
-            if (board[beforeX][beforeY] == "P"  || board[beforeX][beforeY] == "p") {
-                if (movePawn(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
-                    placePiece(before, after); return true;
+            if (board[beforeX][beforeY].equals("P") || board[beforeX][beforeY].equals("p")) {
+                if (movePawn(player)) { // switches between 1 and 2
+                    drawPiece(before, after); return true;
                 }
             }
 
             // castles
             if (board[beforeX][beforeY].equals("C") || board[beforeX][beforeY].equals("c")) {
-                if (moveCastle(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
-                    placePiece(before, after); return true;
+                if (moveCastle(player)) { // switches between 1 and 2
+                    drawPiece(before, after); return true;
                 }
             }
 
             // knights
             if (board[beforeX][beforeY].equals("N") || board[beforeX][beforeY].equals("n")) {
-                if (moveKnight(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
-                    placePiece(before, after); return true;
+                if (moveKnight(player)) { // switches between 1 and 2
+                    drawPiece(before, after); return true;
                 }
             }
             // bishops
             if (board[beforeX][beforeY].equals("B") || board[beforeX][beforeY].equals("b")) {
-                if (moveBishop(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
-                    placePiece(before, after); return true;
+                if (moveBishop(player)) { // switches between 1 and 2
+                    drawPiece(before, after); return true;
                 }
             }
 
             // queens
             if (board[beforeX][beforeY].equals("Q") || board[beforeX][beforeY].equals("q")) {
-                if (moveQueen(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
-                    placePiece(before, after); return true;
+                if (moveQueen(player)) { // switches between 1 and 2
+                    drawPiece(before, after); return true;
                 }
             }
 
             // kings
             if (board[beforeX][beforeY].equals("K") || board[beforeX][beforeY].equals("k")) {
-                if (moveKing(((moveCount - 1)/2 % 2)+ 1)) { // switches between 1 and 2
-                    placePiece(before, after); return true;
+                if (moveKing(player)) { // switches between 1 and 2
+                    drawPiece(before, after); return true;
                 }
             }
 
@@ -346,24 +350,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public boolean movePawn(int player) {
-        String piece;
-        int orientation;
-        if (player == 1) {
-            piece = "P";
-            Log.d("move", "Player 1 where piece is \"P\"");
-            orientation = 1;
-        } else {
-            piece = "p";
-            orientation = -1;
-        }
+
+        String piece = (player == 1) ? "P": "p";
+        int orientation = (player == 1) ? 1: -1;
+
         // forward
-        for (int i = 1; i <= 2; i = i + orientation) {
-            if (beforeX == afterX && afterY == beforeY + i) {
+        for (int i = 1; i <= 2; i++) {
+            if (board[beforeX][beforeY + i * orientation] != "0") {
+                return false;
+            }
+            if (beforeX == afterX && afterY == beforeY + i * orientation) {
                 Log.d("move", "Loads forward");
                 board[beforeX][beforeY] = "0";
                 board[afterX][afterY] = piece;
                 return true;
             }
+
         }
         // diagonal take
         if ((beforeX + 1 == afterX || beforeX - 1 == afterX) && beforeY + orientation == afterY) {
@@ -551,7 +553,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             rook = "r";
         }
         // castles
-        if (castlePlayer2 && (beforeX == 4 && beforeY == 7)
+        if (castlePlayer2left && castlePlayer2right && (beforeX == 4 && beforeY == 7) // CHANGE =================
                 && (afterX == 6 && afterY  == 7 || afterX == 2 && afterY  == 7 )) {
             board[beforeX][beforeY] = "0";
             board[afterX][afterY] = piece;
@@ -577,7 +579,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         // right
         if (beforeX + 1 == afterX) {
-            castlePlayer2 = false;
+            castlePlayer2right = false; // CHANGE ===============================
             board[beforeX][beforeY] = "0";
             board[afterX][afterY] = piece;
             return true;
@@ -595,9 +597,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return true;
         }
         if (player == 1) {
-            castlePlayer1 = false;
+            castlePlayer1left = false; // CHANGE ============================
         } else {
-            castlePlayer2 = false;
+            castlePlayer2left = false; // CHANGE ============================
         }
         return false;
     }
@@ -612,7 +614,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         afterY = getCharFromString(v.getTag().toString(), 1) - '1';
     }
 
-    public void placePiece(ImageButton before, ImageButton after) {
+    public void drawPiece(ImageButton before, ImageButton after) {
         before.setImageResource(R.drawable.nothing);
         switch(board[afterX][afterY]) {
             case "P":
